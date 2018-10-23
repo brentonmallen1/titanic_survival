@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="static/js/script.js"></script>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>Titanic Survival</title>
+</head>
+<body>
+<h1>Titanic Survival</h1>
+This is a small application to determine if a passenger would likely survive
+the titanic.
+<br>
+<br>
+<div class="container">
+    <form action="/dev/titanic" method="POST" enctype="multipart/form-data">
+        <table style="width:30%">
+            <tr>
+                <td><p align="center">Ticket Class:</p></td>
+                <td>
+                    <select name="Pclass">
+                        <option value="1">First</option>
+                        <option value="2">Second</option>
+                        <option value="3">Third</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><p align="center">Sex:</p></td>
+                <td>
+                    <select name="Sex">
+                        <option value="0">Female</option>
+                        <option value="1">Male</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><p align="center">Age:</p></td>
+                <td>
+                    <input name="Age" type="number" min="1" max="100"
+                           value="21">
+                </td>
+            </tr>
+            <tr>
+                <td><p align="center">Spouse/Sibling Count:</p></td>
+                <td>
+                    <select name="SibSp">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><p align="center">Parent/Child Count:</p></td>
+                <td>
+                    <select name="Parch">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><p align="center">Ticket Fare:</p></td>
+                <td>
+                    <input name="Fare" type="number" min="0.00" step="0.25"
+                           value="25.00"/>
+                </td>
+            </tr>
+            <tr>
+                <td><p align="center">Embark Location:</p></td>
+                <td>
+                    <select name="Embarked">
+                        <option value="0">Southampton</option>
+                        <option value="1">Cherbourg</option>
+                        <option value="2">Queenstown</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><p align="center">Alone:</p></td>
+                <td>
+                    <select name="Alone">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <br>
+        <input id="submit" type="submit" name="submit"
+               style="height:30px;width:125px"/>
+        <br>
+        <br>
+        <p><strong>Result:</strong></p>
+        <pre class="output"></pre>
+    </form>
+    <hr>
+    Created by
+    <a href="https://brentonmallen.com">Brenton Mallen</a>
+    ©2018
+    <br>
+    <!--
+    <a href="https://brentonmallen.com">Source Code</a>
+    -->
+</div>
+</body>
+</html>
