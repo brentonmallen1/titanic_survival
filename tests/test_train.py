@@ -15,8 +15,7 @@ def test_fill_encode_embark():
         {'Age': 14, 'Embarked': 'S'},
     ]
     test_df = pd.DataFrame(data, index=range(len(data)))
-
-    train.fill_encode_embark(test_df)
+    _utils.fill_encode_embark(test_df)
     assert 0 == test_df[test_df['Age'] == 12]['Embarked'].values[0]
 
 

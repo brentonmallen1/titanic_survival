@@ -160,3 +160,16 @@ def predict_encode_age(row: pd.Series,
         return age_groups(clf.predict(row[features].values.reshape(1, -1))[0])
     else:
         return age_groups(row['Age'])
+
+
+def fill_encode_embark(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    This function will replace any missing embark locations with
+    the most common one and encode the values
+    :param df: training dataframe
+    :return: training dataframe with encoded embark feature
+    """
+    most_common_embark = df['Embarked'].mode()[0]
+    df['Embarked'] = df['Embarked'].fillna(most_common_embark)
+    encoding = {f: i for i, f in enumerate(df['Embarked'].unique())}
+    df['Embarked'] = df['Embarked'].map(encoding)

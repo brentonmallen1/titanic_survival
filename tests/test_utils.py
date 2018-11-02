@@ -1,6 +1,7 @@
 import utils as utils
 import pandas as pd
 import os
+import numpy as np
 from sklearn.externals import joblib
 from sklearn.ensemble import RandomForestClassifier
 
@@ -83,14 +84,40 @@ def test_missing_age():
     and test filling age data
     :return:
     """
-    age_features = [f for f in utils.FEATURES if f != 'Age']
-    test_df = joblib.load(os.path.join(
-        utils.MODEL_LOC,
-        utils.MODEL_NAME
-    )
-    )
+    data = [
+        {'Sex': 1, 'Embarked': 2, 'Age': 20},
+        {'Sex': 1, 'Embarked': 2, 'Age': 22},
+        {'Sex': 1, 'Embarked': 2, 'Age': 20},
+        {'Sex': 1, 'Embarked': 2, 'Age': np.nan},
+    ]
+    age_features = ['Sex', 'Embarked']
+    df = pd.DataFrame(data=data, index=[0, 1, 2, 3])
     age_clf = utils.missing_clf(
-        test_df,
+        df,
         age_features,
         'Age'
     )
+    pred_age = [
+        utils.predict_encode_age(x,
+                                 features=age_features,
+                                 clf=age_clf
+                                 )
+        for i, x in df.iterrows()
+    ]
+    assert not np.isnan(pred_age).all()
+
+
+def test_fill_encode_empark():
+    """
+    Test filling missing Embark data
+    :return:
+    """
+    data = [
+        {'Sex': 1, 'Embarked': 2},
+        {'Sex': 1, 'Embarked': 2},
+        {'Sex': 1, 'Embarked': 2},
+        {'Sex': 1, 'Embarked': np.nan},
+    ]
+    test_df = pd.DataFrame(data=data)
+    utils.fill_encode_embark(test_df)
+    assert not test_df['Embarked'].isna().all()

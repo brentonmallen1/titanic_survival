@@ -6,19 +6,6 @@ import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 
 
-def fill_encode_embark(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    This function will replace any missing embark locations with
-    the most common one and encode the values
-    :param df: training dataframe
-    :return: training dataframe with encoded embark feature
-    """
-    most_common_embark = df['Embarked'].mode()[0]
-    df['Embarked'] = df['Embarked'].fillna(most_common_embark)
-    encoding = {f: i for i, f in enumerate(df['Embarked'].unique())}
-    df['Embarked'] = df['Embarked'].map(encoding)
-
-
 def process_data(train_fname: str) -> pd.DataFrame:
     """
     Process the training data to extract the classification
@@ -29,7 +16,7 @@ def process_data(train_fname: str) -> pd.DataFrame:
     # load training data
     train_data = _utils.pandas_load(train_fname)
     # process the embarked data
-    fill_encode_embark(train_data)
+    _utils.fill_encode_embark(train_data)
     # encode the sex data
     train_data['Sex'] = train_data['Sex'].map(_utils.SEX_MAPPING)
     # Fill missing ages and encode them into age groups
@@ -39,13 +26,15 @@ def process_data(train_fname: str) -> pd.DataFrame:
                                  'Age'
                                  )
     train_data['Age'] = (train_data.
-                         apply(lambda x: _utils.predict_encode_age(x,
-                                                                   features=age_features,
-                                                                   clf=age_clf
-                                                                   ),
-                               axis=1
-                               )
-                         )
+        apply(
+        lambda x: _utils.predict_encode_age(
+            x,
+            features=age_features,
+            clf=age_clf
+        ),
+        axis=1
+    )
+    )
     # encode Fare into groups
     train_data['Fare'] = train_data['Fare'].apply(_utils.fare_groups)
     # determine if the passenger is alone
