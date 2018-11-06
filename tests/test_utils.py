@@ -35,6 +35,7 @@ def test_save_load_model():
     test_clf2 = utils.load_model(test_floc, test_fname)
     assert isinstance(test_clf2, RandomForestClassifier)
     assert 8 == test_clf2.n_features_
+    os.remove(os.path.join(test_floc, test_fname))
 
 
 def test_fare_groups():
