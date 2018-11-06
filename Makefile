@@ -77,10 +77,11 @@ test:
 # --------
 # TRAINING
 # --------
-
+.PHONY: train
+train:
+	$(VENV)/python train.py
 
 # ------
 # KAGGLE
 # ------
-
-
+# TODO run the stored classifier on the test data and submit the results to kaggle
