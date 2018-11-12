@@ -33,6 +33,7 @@ def format_prediction(pred: int) -> str:
 
 
 @app.route('/', methods=['GET'])
+@app.route('/dev/', methods=['GET'])
 def index(name=None):
     """
     Main landing page
@@ -43,6 +44,7 @@ def index(name=None):
 
 
 @app.route('/titanic', methods=['POST'])
+@app.route('/dev/titanic', methods=['POST'])
 def predict_survival() -> Response:
     """
     Perform survival prediction based off form input
@@ -59,4 +61,4 @@ def predict_survival() -> Response:
 
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=False, host='0.0.0.0')
