@@ -2,8 +2,10 @@ import json
 import numpy as np
 import utils as _utils
 from flask import Flask, request, Response, render_template
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}}, send_wildcard=True)
 
 
 def get_features() -> np.array:
