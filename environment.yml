@@ -11,3 +11,4 @@ dependencies:
   - matplotlib==3.0.0
   - pytest==3.9.1
   - kaggle
+  - flask-cors
